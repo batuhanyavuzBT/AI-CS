@@ -26,7 +26,6 @@ def anasayfa():
     success_message = request.args.get('success_message', '')
     return render_template('anasayfa.html', success_message=success_message)
 
-@app.route('/log', methods=['POST'])
 @app.route('/anasayfa', methods=['POST'])
 def log_data():
     user_input = request.form['user_input']
