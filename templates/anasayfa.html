@@ -23,7 +23,7 @@
             text-align: center;
         }
         .welcome-container input[type="text"] {
-            width: calc(100% - 22px); /* Tam genişlik için küçük bir düzeltme */
+            width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
@@ -38,6 +38,7 @@
             color: #fff;
             font-size: 16px;
             cursor: pointer;
+            margin-bottom: 10px;
         }
         .welcome-container button:hover {
             background-color: #0056b3;
@@ -45,6 +46,16 @@
         .message {
             margin-top: 10px;
             color: #007bff;
+        }
+        .extra-button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .extra-button-container button {
+            background-color: #28a745;
+        }
+        .extra-button-container button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -56,6 +67,11 @@
         <button type="button" onclick="submitForm()">Telefonu Kaydet</button>
         <p id="message" class="message"></p>
     </div>
+    
+    <div class="extra-button-container">
+        <button type="button" onclick="sendRequest()">Request isteği yolla</button>
+        <p id="responseMessage" class="message"></p>
+    </div>
 
     <script>
         function submitForm() {
@@ -64,6 +80,30 @@
 
             // Mesaj ekle
             document.getElementById('message').textContent = 'Veriler gönderildi';
+        }
+
+        function sendRequest() {
+            const inputValue = document.getElementById('textInput').value;
+            fetch('/send-request', {  // Doğru URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: inputValue }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('responseMessage').textContent = 'Request gönderildi: ' + JSON.stringify(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('responseMessage').textContent = ' ' + error.message;
+            });
         }
     </script>
 </body>
