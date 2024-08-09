@@ -6,6 +6,7 @@ import re
 import numpy as np
 from sklearn.ensemble import IsolationForest
 import joblib
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 
@@ -111,6 +112,7 @@ def success():
 
 # Log dosyasının yolu
 LOG_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\templates\log.txt'
+MODEL_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\anomaly_model.csv'  # Model dosya yolu
 
 @app.route('/send-request', methods=['POST'])
 def send_request():
@@ -130,7 +132,7 @@ def send_request():
     except Exception as e:
         print(f"Failed to write to log file: {e}")
         return "Internal Server Error", 500
-    
+
 def get_file_size(file_path):
     """Dosyanın boyutunu bayt cinsinden döndürür."""
     if os.path.exists(file_path):
@@ -162,11 +164,19 @@ def train_model(data):
 
 def save_model(model, filename):
     """Eğitilen modeli bir dosyaya kaydeder."""
-    joblib.dump(model, filename)
+    try:
+        joblib.dump(model, filename)
+        print(f"Model başarıyla kaydedildi: {filename}")
+    except Exception as e:
+        print(f"Model kaydedilirken bir hata oluştu: {e}")
 
 def load_model(filename):
     """Bir dosyadan eğitilen modeli yükler."""
-    return joblib.load(filename)
+    try:
+        return joblib.load(filename)
+    except Exception as e:
+        print(f"Model yüklenirken bir hata oluştu: {e}")
+        raise
 
 def detect_anomalies(model, new_size):
     """Yeni istek boyutunun anormal olup olmadığını eğitilen model ile tespit eder."""
@@ -181,12 +191,11 @@ def analyze_requests():
         return
 
     # Modeli eğit veya mevcut modeli yükle
-    model_filename = 'anomaly_model.pkl'
     try:
-        model = load_model(model_filename)
+        model = load_model(MODEL_FILE_PATH)
     except FileNotFoundError:
         model = train_model(sizes)
-        save_model(model, model_filename)
+        save_model(model, MODEL_FILE_PATH)
 
     # Yeni istek boyutunu simüle et (bu değeri gerçek istek boyutlarıyla değiştirin)
     new_request_size = sizes[-1][0]  # En son boyut
@@ -197,6 +206,12 @@ def analyze_requests():
     else:
         print(f"Yeni istek boyutu {new_request_size} byte normal aralıkta.")
 
+# Zamanlayıcıyı başlatma
+def start_scheduler():
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(analyze_requests, 'interval', minutes=10)  # Her 10 dakikada bir çalışır
+    scheduler.start()
+
 if __name__ == '__main__':
+    start_scheduler()
     app.run()
-    # analyze_requests()  # Bu fonksiyonu Flask uygulaması dışında çalıştırabilirsiniz.
