@@ -6,53 +6,72 @@
     <title>Anasayfa</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #e9ecef;
+            color: #495057;
+            position: relative;
         }
         .welcome-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
             text-align: center;
+            border: 1px solid #dee2e6;
+        }
+        .welcome-container h1 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .welcome-container p {
+            color: #6c757d;
+            margin-bottom: 20px;
         }
         .welcome-container input[type="text"] {
             width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
         }
         .welcome-container button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #007bff;
             border: none;
-            border-radius: 4px;
-            color: #fff;
+            border-radius: 6px;
+            color: #ffffff;
             font-size: 16px;
             cursor: pointer;
-            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
         }
         .welcome-container button:hover {
             background-color: #0056b3;
         }
         .message {
-            margin-top: 10px;
-            color: #007bff;
+            margin-top: 15px;
+            color: #28a745;
+            font-size: 14px;
         }
         .extra-button-container {
-            margin-top: 20px;
-            text-align: center;
+            margin-top: 15px;
         }
         .extra-button-container button {
             background-color: #28a745;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         .extra-button-container button:hover {
             background-color: #218838;
@@ -61,30 +80,20 @@
 </head>
 <body>
     <div class="welcome-container">
-        <h1>Telefon Kayıt</h1>
-        <p>Telefon Numaranızı Yazın.</p>
+        <h1>REQUEST</h1>
+        <p>Bir request isteği yollayın.</p>
         <input type="text" id="textInput" placeholder="Buraya bir şey yazın...">
-        <button type="button" onclick="submitForm()">Telefonu Kaydet</button>
-        <p id="message" class="message"></p>
-    </div>
-    
-    <div class="extra-button-container">
-        <button type="button" onclick="sendRequest()">Request isteği yolla</button>
-        <p id="responseMessage" class="message"></p>
+        <!-- Telefonu Kaydet butonu kaldırıldı -->
+        <div class="extra-button-container">
+            <button type="button" onclick="sendRequest()">Request isteği yolla</button>
+            <p id="responseMessage" class="message"></p>
+        </div>
     </div>
 
     <script>
-        function submitForm() {
-            // Sayfayı yenile
-            window.location.reload();
-
-            // Mesaj ekle
-            document.getElementById('message').textContent = 'Veriler gönderildi';
-        }
-
         function sendRequest() {
             const inputValue = document.getElementById('textInput').value;
-            fetch('/send-request', {  // Doğru URL
+            fetch('http://127.0.0.1:5000/send-request', { // Flask sunucusu adresi
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -102,7 +111,7 @@
             })
             .catch((error) => {
                 console.error('Error:', error);
-                document.getElementById('responseMessage').textContent = ' ' + error.message;
+                document.getElementById('responseMessage').textContent = 'Error: ' + error.message;
             });
         }
     </script>

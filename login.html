@@ -6,57 +6,63 @@
     <title>Giriş Yap</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #f8f9fa;
         }
 
         .login-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
         }
 
         .login-container h1 {
-            margin: 0 0 20px;
-            text-align: center;
-            font-size: 24px;
-            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #343a40;
         }
 
         .login-container label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #495057;
         }
 
         .login-container input {
-            width: 100%;
-            padding: 10px;
+            width: calc(100% - 22px);
+            padding: 12px;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
         }
 
         .login-container button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #007bff;
             border: none;
-            border-radius: 4px;
-            color: #fff;
+            border-radius: 8px;
+            color: #ffffff;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .login-container button:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
     </style>
 </head>

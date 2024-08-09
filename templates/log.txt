@@ -1,0 +1,236 @@
+Request received at 2024-08-09 11:30:22.245064: {'data': '12346asdfafadgsadsgsadg'}
+Current log file size: 0 bytes
+Request received at 2024-08-09 11:30:22.392401: {'data': '12346asdfafadgsadsgsadg'}
+Current log file size: 117 bytes
+Request received at 2024-08-09 11:30:23.639374: {'data': '12346asdfafadgsadsgsadgGDSAGDSAGSDAG'}
+Current log file size: 236 bytes
+Request received at 2024-08-09 11:30:24.914814: {'data': '12346asdfafadgsadsgsadgGDSAGDSAGSDAGSDAGDSAGSDAG'}
+Current log file size: 368 bytes
+Request received at 2024-08-09 11:30:25.056877: {'data': '12346asdfafadgsadsgsadgGDSAGDSAGSDAGSDAGDSAGSDAG'}
+Current log file size: 512 bytes
+Request received at 2024-08-09 11:30:25.202091: {'data': '12346asdfafadgsadsgsadgGDSAGDSAGSDAGSDAGDSAGSDAG'}
+Current log file size: 656 bytes
+Request received at 2024-08-09 11:44:09.655104: {'data': 'asdas'}
+Current log file size: 800 bytes
+Request received at 2024-08-09 11:44:11.379291: {'data': 'asdasasgasgdsag'}
+Current log file size: 901 bytes
+Request received at 2024-08-09 11:44:15.012055: {'data': '516ag11dsa5g5ds15a16g5a'}
+Current log file size: 1012 bytes
+Request received at 2024-08-09 11:44:15.199900: {'data': '516ag11dsa5g5ds15a16g5a'}
+Current log file size: 1132 bytes
+Request received at 2024-08-09 11:44:29.081788: {'data': 'asg561ads1g15dsa51g1dsa51g56asd5g15sda1g1sa15g51sag51sad51g51s6a5g15d1sa51gas15dg156dsag15dsa15g516dsa516g156dsa56g1dsa98hg1d5ash1sfd15ah156ah145h4115ah4$#$#$#£$#£$#£%+^&+35754^734%+^/$#5{545/3+%575437+'}
+Current log file size: 1252 bytes
+Request received at 2024-08-09 11:44:30.047257: {'data': 'asg561ads1g15dsa51g1dsa51g56asd5g15sda1g1sa15g51sag51sad51g51s6a5g15d1sa51gas15dg156dsag15dsa15g516dsa516g156dsa56g1dsa98hg1d5ash1sfd15ah156ah145h4115ah4$#$#$#£$#£$#£%+^&+35754^734%+^/$#5{545/3+%575437+'}
+Current log file size: 1551 bytes
+Request received at 2024-08-09 11:51:41.986139: {'data': 'asdfas'}
+Current log file size: 1850 bytes
+Request received at 2024-08-09 11:51:42.733586: {'data': 'asdfas'}
+Current log file size: 1953 bytes
+Request received at 2024-08-09 11:51:42.891317: {'data': 'asdfas'}
+Current log file size: 2056 bytes
+Request received at 2024-08-09 11:51:43.043415: {'data': 'asdfas'}
+Current log file size: 2159 bytes
+Request received at 2024-08-09 11:51:43.190507: {'data': 'asdfas'}
+Current log file size: 2262 bytes
+Request received at 2024-08-09 11:51:43.361382: {'data': 'asdfas'}
+Current log file size: 2365 bytes
+Request received at 2024-08-09 11:51:43.466570: {'data': 'asdfas'}
+Current log file size: 2468 bytes
+Request received at 2024-08-09 11:51:43.733216: {'data': 'asdfas'}
+Current log file size: 2571 bytes
+Request received at 2024-08-09 11:51:43.909571: {'data': 'asdfas'}
+Current log file size: 2674 bytes
+Request received at 2024-08-09 11:51:44.062299: {'data': 'asdfas'}
+Current log file size: 2777 bytes
+Request received at 2024-08-09 11:51:44.233319: {'data': 'asdfas'}
+Current log file size: 2880 bytes
+Request received at 2024-08-09 11:51:44.383245: {'data': 'asdfas'}
+Current log file size: 2983 bytes
+Request received at 2024-08-09 11:51:44.533288: {'data': 'asdfas'}
+Current log file size: 3086 bytes
+Request received at 2024-08-09 11:51:44.685820: {'data': 'asdfas'}
+Current log file size: 3189 bytes
+Request received at 2024-08-09 11:51:44.839069: {'data': 'asdfas'}
+Current log file size: 3292 bytes
+Request received at 2024-08-09 11:51:44.999904: {'data': 'asdfas'}
+Current log file size: 3395 bytes
+Request received at 2024-08-09 11:51:45.142759: {'data': 'asdfas'}
+Current log file size: 3498 bytes
+Request received at 2024-08-09 11:51:45.283355: {'data': 'asdfas'}
+Current log file size: 3601 bytes
+Request received at 2024-08-09 11:51:45.445934: {'data': 'asdfas'}
+Current log file size: 3704 bytes
+Request received at 2024-08-09 11:51:45.597061: {'data': 'asdfas'}
+Current log file size: 3807 bytes
+Request received at 2024-08-09 11:51:45.785467: {'data': 'asdfas'}
+Current log file size: 3910 bytes
+Request received at 2024-08-09 11:52:37.084753: {'data': 'fsa'}
+Current log file size: 4013 bytes
+Request received at 2024-08-09 11:52:38.434589: {'data': 'fsagdfsh'}
+Current log file size: 4113 bytes
+Request received at 2024-08-09 11:52:39.299655: {'data': 'fsagdfsh'}
+Current log file size: 4218 bytes
+Request received at 2024-08-09 11:52:39.528801: {'data': 'fsagdfsh'}
+Current log file size: 4323 bytes
+Request received at 2024-08-09 11:52:39.684429: {'data': 'fsagdfsh'}
+Current log file size: 4428 bytes
+Request received at 2024-08-09 11:52:39.829810: {'data': 'fsagdfsh'}
+Current log file size: 4533 bytes
+Request received at 2024-08-09 11:52:39.984173: {'data': 'fsagdfsh'}
+Current log file size: 4638 bytes
+Request received at 2024-08-09 11:52:40.134429: {'data': 'fsagdfsh'}
+Current log file size: 4743 bytes
+Request received at 2024-08-09 11:52:40.268026: {'data': 'fsagdfsh'}
+Current log file size: 4848 bytes
+Request received at 2024-08-09 11:52:40.428640: {'data': 'fsagdfsh'}
+Current log file size: 4953 bytes
+Request received at 2024-08-09 11:52:40.551885: {'data': 'fsagdfsh'}
+Current log file size: 5058 bytes
+Request received at 2024-08-09 11:52:40.733927: {'data': 'fsagdfsh'}
+Current log file size: 5163 bytes
+Request received at 2024-08-09 11:52:40.875752: {'data': 'fsagdfsh'}
+Current log file size: 5268 bytes
+Request received at 2024-08-09 11:52:41.034608: {'data': 'fsagdfsh'}
+Current log file size: 5373 bytes
+Request received at 2024-08-09 11:52:41.206842: {'data': 'fsagdfsh'}
+Current log file size: 5478 bytes
+Request received at 2024-08-09 11:52:41.334671: {'data': 'fsagdfsh'}
+Current log file size: 5583 bytes
+Request received at 2024-08-09 11:52:41.501671: {'data': 'fsagdfsh'}
+Current log file size: 5688 bytes
+Request received at 2024-08-09 11:52:41.651716: {'data': 'fsagdfsh'}
+Current log file size: 5793 bytes
+Request received at 2024-08-09 11:52:41.784726: {'data': 'fsagdfsh'}
+Current log file size: 5898 bytes
+Request received at 2024-08-09 11:52:41.927906: {'data': 'fsagdfsh'}
+Current log file size: 6003 bytes
+Request received at 2024-08-09 11:52:42.613556: {'data': 'fsagdfshDHS'}
+Current log file size: 6108 bytes
+Request received at 2024-08-09 11:52:42.751050: {'data': 'fsagdfshDHS'}
+Current log file size: 6216 bytes
+Request received at 2024-08-09 11:52:42.908687: {'data': 'fsagdfshDHS'}
+Current log file size: 6324 bytes
+Request received at 2024-08-09 11:52:43.051221: {'data': 'fsagdfshDHS'}
+Current log file size: 6432 bytes
+Request received at 2024-08-09 11:52:43.201409: {'data': 'fsagdfshDHS'}
+Current log file size: 6540 bytes
+Request received at 2024-08-09 11:52:43.357357: {'data': 'fsagdfshDHS'}
+Current log file size: 6648 bytes
+Request received at 2024-08-09 11:52:43.484560: {'data': 'fsagdfshDHS'}
+Current log file size: 6756 bytes
+Request received at 2024-08-09 11:52:43.617767: {'data': 'fsagdfshDHS'}
+Current log file size: 6864 bytes
+Request received at 2024-08-09 11:52:43.768160: {'data': 'fsagdfshDHS'}
+Current log file size: 6972 bytes
+Request received at 2024-08-09 11:52:43.915838: {'data': 'fsagdfshDHS'}
+Current log file size: 7080 bytes
+Request received at 2024-08-09 11:52:44.084883: {'data': 'fsagdfshDHS'}
+Current log file size: 7188 bytes
+Request received at 2024-08-09 11:52:44.287364: {'data': 'fsagdfshDHS'}
+Current log file size: 7296 bytes
+Request received at 2024-08-09 11:52:44.465205: {'data': 'fsagdfshDHS'}
+Current log file size: 7404 bytes
+Request received at 2024-08-09 11:52:44.652233: {'data': 'fsagdfshDHS'}
+Current log file size: 7512 bytes
+Request received at 2024-08-09 11:52:44.840862: {'data': 'fsagdfshDHS'}
+Current log file size: 7620 bytes
+Request received at 2024-08-09 11:52:45.036677: {'data': 'fsagdfshDHS'}
+Current log file size: 7728 bytes
+Request received at 2024-08-09 11:52:45.962332: {'data': 'fsagdfshDHSSDHFHS'}
+Current log file size: 7836 bytes
+Request received at 2024-08-09 11:52:46.117964: {'data': 'fsagdfshDHSSDHFHS'}
+Current log file size: 7950 bytes
+Request received at 2024-08-09 11:52:46.269195: {'data': 'fsagdfshDHSSDHFHS'}
+Current log file size: 8064 bytes
+Request received at 2024-08-09 11:52:46.420988: {'data': 'fsagdfshDHSSDHFHS'}
+Current log file size: 8178 bytes
+Request received at 2024-08-09 11:52:46.551388: {'data': 'fsagdfshDHSSDHFHS'}
+Current log file size: 8292 bytes
+Request received at 2024-08-09 11:52:46.717750: {'data': 'fsagdfshDHSSDHFHS'}
+Current log file size: 8406 bytes
+Request received at 2024-08-09 11:52:46.867956: {'data': 'fsagdfshDHSSDHFHS'}
+Current log file size: 8520 bytes
+Request received at 2024-08-09 11:52:47.030470: {'data': 'fsagdfshDHSSDHFHS'}
+Current log file size: 8634 bytes
+Request received at 2024-08-09 11:52:48.084636: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 8748 bytes
+Request received at 2024-08-09 11:52:48.234607: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 8869 bytes
+Request received at 2024-08-09 11:52:48.402034: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 8990 bytes
+Request received at 2024-08-09 11:52:48.553927: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 9111 bytes
+Request received at 2024-08-09 11:52:48.705866: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 9232 bytes
+Request received at 2024-08-09 11:52:48.868204: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 9353 bytes
+Request received at 2024-08-09 11:52:49.007262: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 9474 bytes
+Request received at 2024-08-09 11:52:49.165524: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 9595 bytes
+Request received at 2024-08-09 11:52:49.302160: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 9716 bytes
+Request received at 2024-08-09 11:52:49.434761: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 9837 bytes
+Request received at 2024-08-09 11:52:49.584300: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 9958 bytes
+Request received at 2024-08-09 11:52:49.712889: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 10079 bytes
+Request received at 2024-08-09 11:52:49.836006: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 10201 bytes
+Request received at 2024-08-09 11:52:49.968246: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 10323 bytes
+Request received at 2024-08-09 11:52:50.119122: {'data': 'fsagdfshDHSSDHFHSASDGASD'}
+Current log file size: 10445 bytes
+Request received at 2024-08-09 12:08:58.351395: {'data': 'dfdsa'}
+Current log file size: 10567 bytes
+Request received at 2024-08-09 12:08:58.485060: {'data': 'dfdsa'}
+Current log file size: 10670 bytes
+Request received at 2024-08-09 12:08:58.668270: {'data': 'dfdsa'}
+Current log file size: 10773 bytes
+Request received at 2024-08-09 12:08:58.836661: {'data': 'dfdsa'}
+Current log file size: 10876 bytes
+Request received at 2024-08-09 12:08:58.995381: {'data': 'dfdsa'}
+Current log file size: 10979 bytes
+Request received at 2024-08-09 12:08:59.144152: {'data': 'dfdsa'}
+Current log file size: 11082 bytes
+Request received at 2024-08-09 12:08:59.277061: {'data': 'dfdsa'}
+Current log file size: 11185 bytes
+Request received at 2024-08-09 12:08:59.420868: {'data': 'dfdsa'}
+Current log file size: 11288 bytes
+Request received at 2024-08-09 12:08:59.736605: {'data': 'dfdsa'}
+Current log file size: 11391 bytes
+Request received at 2024-08-09 12:08:59.855681: {'data': 'dfdsa'}
+Current log file size: 11494 bytes
+Request received at 2024-08-09 12:09:00.010771: {'data': 'dfdsa'}
+Current log file size: 11597 bytes
+Request received at 2024-08-09 12:09:22.016828: {'data': 'dfdsa'}
+Current log file size: 11700 bytes
+Request received at 2024-08-09 12:09:22.164567: {'data': 'dfdsa'}
+Current log file size: 11803 bytes
+Request received at 2024-08-09 12:09:22.303282: {'data': 'dfdsa'}
+Current log file size: 11906 bytes
+Request received at 2024-08-09 12:09:22.457196: {'data': 'dfdsa'}
+Current log file size: 12009 bytes
+Request received at 2024-08-09 12:09:22.588470: {'data': 'dfdsa'}
+Current log file size: 12112 bytes
+Request received at 2024-08-09 12:09:22.720071: {'data': 'dfdsa'}
+Current log file size: 12215 bytes
+Request received at 2024-08-09 12:09:22.876277: {'data': 'dfdsa'}
+Current log file size: 12318 bytes
+Request received at 2024-08-09 12:09:23.022112: {'data': 'dfdsa'}
+Current log file size: 12421 bytes
+Request received at 2024-08-09 12:09:23.155675: {'data': 'dfdsa'}
+Current log file size: 12524 bytes
+Request received at 2024-08-09 12:09:23.289397: {'data': 'dfdsa'}
+Current log file size: 12627 bytes
+Request received at 2024-08-09 12:09:23.436752: {'data': 'dfdsa'}
+Current log file size: 12730 bytes
+Request received at 2024-08-09 12:09:23.603219: {'data': 'dfdsa'}
+Current log file size: 12833 bytes
+Request received at 2024-08-09 12:09:23.746956: {'data': 'dfdsa'}
+Current log file size: 12936 bytes
+Request received at 2024-08-09 12:09:23.895159: {'data': 'dfdsa'}
+Current log file size: 13039 bytes
+Request received at 2024-08-09 12:09:24.020021: {'data': 'dfdsa'}
+Current log file size: 13142 bytes
