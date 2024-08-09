@@ -2,10 +2,10 @@ from flask import Flask, request, render_template_string, render_template, redir
 import csv
 import os
 from datetime import datetime
+import re
 import numpy as np
 from sklearn.ensemble import IsolationForest
 import joblib
-import re
 
 app = Flask(__name__)
 
@@ -111,20 +111,16 @@ def success():
 
 # Log dosyasının yolu
 LOG_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\templates\log.txt'
-MODEL_FILENAME = r'C:\Users\YAU9BU\Desktop\proje_spyder\templates\anomaly_model.pkl'
-
-def get_file_size(file_path):
-    """Dosyanın boyutunu bayt cinsinden döndürür."""
-    if os.path.exists(file_path):
-        return os.path.getsize(file_path)
-    return 0
 
 @app.route('/send-request', methods=['POST'])
 def send_request():
     data = request.json
-    file_size = get_file_size(LOG_FILE_PATH)
+    
+    # JSON verisinin byte cinsinden boyutu
+    data_size = len(str(data).encode('utf-8'))
+    
     log_entry = (f"Request received at {datetime.now()}: {data}\n"
-                 f"Current log file size: {file_size} bytes\n")
+                 f"Data size: {data_size} bytes\n")
 
     try:
         # Log dosyasını aç ve log girdisini ekle
@@ -134,11 +130,17 @@ def send_request():
     except Exception as e:
         print(f"Failed to write to log file: {e}")
         return "Internal Server Error", 500
+    
+def get_file_size(file_path):
+    """Dosyanın boyutunu bayt cinsinden döndürür."""
+    if os.path.exists(file_path):
+        return os.path.getsize(file_path)
+    return 0
 
 def read_log_file(file_path):
     """Log dosyasını okur ve istek boyutlarını döndürür."""
     sizes = []
-    size_pattern = re.compile(r'Current log file size: (\d+) bytes')
+    size_pattern = re.compile(r'Data size: (\d+) bytes')
     
     try:
         with open(file_path, 'r') as file:
@@ -171,27 +173,30 @@ def detect_anomalies(model, new_size):
     prediction = model.predict(np.array([[new_size]]))
     return prediction == -1
 
-@app.route('/check-anomaly', methods=['POST'])
-def check_anomaly():
-    """Yeni isteğin boyutunun anormal olup olmadığını kontrol eder."""
-    new_request_size = get_file_size(LOG_FILE_PATH)  # Güncel log dosyasının boyutunu al
+def analyze_requests():
     sizes = read_log_file(LOG_FILE_PATH)
-
+    
     if sizes.size == 0:
-        return jsonify({'message': 'Yeterli veri yok'}), 400
+        print("Analiz edilecek veri yok.")
+        return
 
-    # Modeli yükle veya eğit
+    # Modeli eğit veya mevcut modeli yükle
+    model_filename = 'anomaly_model.pkl'
     try:
-        model = load_model(MODEL_FILENAME)
+        model = load_model(model_filename)
     except FileNotFoundError:
         model = train_model(sizes)
-        save_model(model, MODEL_FILENAME)
+        save_model(model, model_filename)
 
-    # Anomali kontrolü yap
+    # Yeni istek boyutunu simüle et (bu değeri gerçek istek boyutlarıyla değiştirin)
+    new_request_size = sizes[-1][0]  # En son boyut
+    print(f"Yeni istek boyutu: {new_request_size} bytes")
+
     if detect_anomalies(model, new_request_size):
-        return jsonify({'status': 'anomaly', 'size': new_request_size})
+        print(f"Uyarı: Yeni istek boyutu {new_request_size} byte anormal.")
     else:
-        return jsonify({'status': 'normal', 'size': new_request_size})
+        print(f"Yeni istek boyutu {new_request_size} byte normal aralıkta.")
 
 if __name__ == '__main__':
     app.run()
+    # analyze_requests()  # Bu fonksiyonu Flask uygulaması dışında çalıştırabilirsiniz.
