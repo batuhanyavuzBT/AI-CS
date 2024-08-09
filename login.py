@@ -7,6 +7,9 @@ import numpy as np
 from sklearn.ensemble import IsolationForest
 import joblib
 from apscheduler.schedulers.background import BackgroundScheduler
+from scapy.all import sniff
+
+
 
 app = Flask(__name__)
 
@@ -211,6 +214,22 @@ def start_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.add_job(analyze_requests, 'interval', minutes=10)  # Her 10 dakikada bir çalışır
     scheduler.start()
+    
+
+# Dosya yolunu tanımlayın
+file_path = r"C:\Users\YAU9BU\Desktop\proje_spyder\sniff.txt"
+
+# Paketleri işleyen bir fonksiyon
+def packet_callback(packet):
+    with open(file_path, "a") as f:
+        f.write(f"{packet.summary()}\n")
+
+# Sniffer'ı başlatın
+try:
+    sniff(prn=packet_callback, store=0)
+except KeyboardInterrupt:
+    print("Trafik izleme durduruldu.")
+    
 
 if __name__ == '__main__':
     start_scheduler()
