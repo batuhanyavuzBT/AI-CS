@@ -219,6 +219,15 @@ def send_request():
         print(f"Failed to write to log file: {e}")
         return "Internal Server Error", 500
 
+@app.route('/logs', methods=['GET'])
+def get_logs():
+    try:
+        with open(LOG_FILE_PATH, 'r') as log_file:
+            logs = log_file.readlines()
+        return jsonify(logs)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 def read_log_file(file_path):
     """Log dosyasını okur ve istek boyutlarını döndürür."""
     sizes = []
@@ -262,7 +271,6 @@ def start_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.add_job(analyze_requests, 'interval', minutes=10)
     scheduler.start()
-    
 
 if __name__ == '__main__':
     start_scheduler()

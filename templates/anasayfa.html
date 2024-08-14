@@ -15,6 +15,7 @@
             background-color: #e9ecef;
             color: #495057;
             position: relative;
+            flex-direction: column;
         }
         .welcome-container {
             background-color: #ffffff;
@@ -24,6 +25,7 @@
             width: 350px;
             text-align: center;
             border: 1px solid #dee2e6;
+            margin-bottom: 20px;
         }
         .welcome-container h1 {
             color: #007bff;
@@ -76,6 +78,22 @@
         .extra-button-container button:hover {
             background-color: #218838;
         }
+        /* Log kısmı için stil */
+        .log-container {
+            width: 350px;
+            height: 200px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 10px;
+            overflow-y: scroll;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .log-container p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #495057;
+        }
     </style>
 </head>
 <body>
@@ -83,17 +101,21 @@
         <h1>REQUEST</h1>
         <p>Bir request isteği yollayın.</p>
         <input type="text" id="textInput" placeholder="Buraya bir şey yazın...">
-        <!-- Telefonu Kaydet butonu kaldırıldı -->
         <div class="extra-button-container">
             <button type="button" onclick="sendRequest()">Request isteği yolla</button>
             <p id="responseMessage" class="message"></p>
         </div>
     </div>
 
+    <!-- Log kısmı -->
+    <div class="log-container" id="logContainer">
+        <!-- Loglar buraya eklenecek -->
+    </div>
+
     <script>
         function sendRequest() {
             const inputValue = document.getElementById('textInput').value;
-            fetch('http://127.0.0.1:5000/send-request', { // Flask sunucusu adresi
+            fetch('http://127.0.0.1:5000/send-request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,12 +130,34 @@
             })
             .then(data => {
                 document.getElementById('responseMessage').textContent = 'Request gönderildi: ' + JSON.stringify(data);
+
+                // Logları güncelle
+                updateLogs();
             })
             .catch((error) => {
                 console.error('Error:', error);
                 document.getElementById('responseMessage').textContent = 'Error: ' + error.message;
             });
         }
+
+        function updateLogs() {
+            fetch('http://127.0.0.1:5000/logs')
+            .then(response => response.json())
+            .then(logs => {
+                const logContainer = document.getElementById('logContainer');
+                logContainer.innerHTML = '';  // Eski logları temizle
+                logs.forEach(log => {
+                    const logEntry = document.createElement('p');
+                    logEntry.textContent = log;
+                    logContainer.appendChild(logEntry);
+                });
+                logContainer.scrollTop = logContainer.scrollHeight;  // Otomatik kaydırma
+            })
+            .catch(error => console.error('Loglar yüklenirken bir hata oluştu:', error));
+        }
+
+        // Sayfa yüklendiğinde logları güncelle
+        document.addEventListener('DOMContentLoaded', updateLogs);
     </script>
 </body>
 </html>
