@@ -275,3 +275,10 @@ def start_scheduler():
 if __name__ == '__main__':
     start_scheduler()
     app.run()
+
+@app.route('/profil')
+def profil():
+    return render_template('profil.html')
+
+
+

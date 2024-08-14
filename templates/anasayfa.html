@@ -78,6 +78,24 @@
         .extra-button-container button:hover {
             background-color: #218838;
         }
+        /* Profil butonu için stil */
+        .profile-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .profile-button:hover {
+            background-color: #0056b3;
+        }
         /* Log kısmı için stil */
         .log-container {
             width: 350px;
@@ -97,6 +115,9 @@
     </style>
 </head>
 <body>
+    <!-- Profil butonu -->
+    <a href="/profil" class="profile-button">Profil</a>
+
     <div class="welcome-container">
         <h1>REQUEST</h1>
         <p>Bir request isteği yollayın.</p>
