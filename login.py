@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string, redirect, url_for, jsonify, render_template
+from flask import Flask, request, render_template_string, render_template, redirect, url_for, jsonify, send_file
 import csv
 import os
 from datetime import datetime
@@ -7,12 +7,8 @@ import numpy as np
 from sklearn.ensemble import IsolationForest
 from sklearn.model_selection import GridSearchCV
 import joblib
-from apscheduler.schedulers.background import BackgroundScheduler
-from collections import defaultdict
-import time
 
 app = Flask(__name__)
-banned_ips = {}
 
 # HTML formu
 LOGIN_FORM = '''
@@ -90,7 +86,6 @@ LOGIN_FORM = '''
 </html>
 '''
 
-# Kullanıcı doğrulama
 def verify_user(username, password):
     with open('login.csv', mode='r') as file:
         reader = csv.DictReader(file)
@@ -117,93 +112,11 @@ def success():
 
 # Log dosyasının yolu
 LOG_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\templates\log.txt'
-MODEL_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\anomaly_model.pkl'  # Model dosya yolu
-
-# Kullanıcı isteklerini izlemek için veri yapısı
-request_times = defaultdict(list)
-TIME_WINDOW = 60  # Zaman penceresi (saniye cinsinden)
-
-def update_request_times(ip_address):
-    now = time.time()
-    if ip_address not in request_times:
-        request_times[ip_address] = []
-    
-    # Zaman damgalarını güncelle
-    request_times[ip_address] = [timestamp for timestamp in request_times[ip_address] if now - timestamp < TIME_WINDOW]
-    request_times[ip_address].append(now)
-
-def prepare_data_for_model():
-    now = time.time()
-    data = []
-    for ip, timestamps in request_times.items():
-        request_count = len(timestamps)
-        time_since_last_request = now - timestamps[-1] if timestamps else TIME_WINDOW
-        
-        data.append([request_count, time_since_last_request])
-    
-    return np.array(data)
-
-def train_model_with_optimization(data):
-    model = IsolationForest(random_state=42)
-    param_grid = {
-        'n_estimators': [50, 100, 200],
-        'max_samples': ['auto', 0.6, 0.8],
-        'contamination': [0.05, 0.1, 0.15],
-        'max_features': [1, 2],
-        'bootstrap': [False, True]
-    }
-
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=3, scoring='accuracy', n_jobs=-1)
-    grid_search.fit(data, np.ones(data.shape[0]))
-    print("En iyi hiperparametreler:", grid_search.best_params_)
-    return grid_search.best_estimator_
-
-def save_model(model, filename):
-    try:
-        joblib.dump(model, filename)
-        print(f"Model başarıyla kaydedildi: {filename}")
-    except Exception as e:
-        print(f"Model kaydedilirken bir hata oluştu: {e}")
-
-def load_model(filename):
-    try:
-        return joblib.load(filename)
-    except Exception as e:
-        print(f"Model yüklenirken bir hata oluştu: {e}")
-        raise
-
-def detect_anomalies(model, request_features):
-    prediction = model.predict([request_features])
-    return prediction == -1
+MODEL_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\anomaly_model.pkl'  # Model dosya yolu ve uzantısı .pkl olmalı
 
 @app.route('/send-request', methods=['POST'])
 def send_request():
     data = request.json
-    ip_address = request.remote_addr
-
-    update_request_times(ip_address)
-    
-    # Verileri hazırlayın ve modeli yükleyin
-    data_for_model = prepare_data_for_model()
-    model = load_model(MODEL_FILE_PATH) if os.path.exists(MODEL_FILE_PATH) else None
-
-    if model is None:
-        # Eğer model mevcut değilse, verileri kullanarak yeni model eğitin
-        if len(data_for_model) > 0:
-            model = train_model_with_optimization(data_for_model)
-            save_model(model, MODEL_FILE_PATH)
-        else:
-            model = IsolationForest(random_state=42)  # Varsayılan model
-
-    # Yeni istek özelliklerini hesaplayın
-    request_count = len(request_times[ip_address])
-    time_since_last_request = time.time() - request_times[ip_address][-1] if request_times[ip_address] else TIME_WINDOW
-    
-    features = [request_count, time_since_last_request]
-    
-    # Anomali tespiti yapın
-    if detect_anomalies(model, features):
-        return jsonify({'error': 'Brute force attack detected'}), 403
     
     # JSON verisinin byte cinsinden boyutu
     data_size = len(str(data).encode('utf-8'))
@@ -212,6 +125,7 @@ def send_request():
                  f"Data size: {data_size} bytes\n")
 
     try:
+        # Log dosyasını aç ve log girdisini ekle
         with open(LOG_FILE_PATH, 'a') as log_file:
             log_file.write(log_entry)
         return jsonify(data)
@@ -219,14 +133,19 @@ def send_request():
         print(f"Failed to write to log file: {e}")
         return "Internal Server Error", 500
 
-@app.route('/logs', methods=['GET'])
-def get_logs():
+@app.route('/logs')
+def logs():
+    """Log dosyasını indirilebilir olarak sunar."""
     try:
-        with open(LOG_FILE_PATH, 'r') as log_file:
-            logs = log_file.readlines()
-        return jsonify(logs)
+        return send_file(LOG_FILE_PATH, as_attachment=True)
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return f"Log dosyası okunamadı: {e}", 500
+
+def get_file_size(file_path):
+    """Dosyanın boyutunu bayt cinsinden döndürür."""
+    if os.path.exists(file_path):
+        return os.path.getsize(file_path)
+    return 0
 
 def read_log_file(file_path):
     """Log dosyasını okur ve istek boyutlarını döndürür."""
@@ -245,6 +164,47 @@ def read_log_file(file_path):
         print("Log dosyası bulunamadı.")
         return np.array([]).reshape(-1, 1)
 
+def train_model_with_optimization(data):
+    """Isolation Forest modelini hiperparametre optimizasyonu ile eğitir."""
+    model = IsolationForest(random_state=42)
+
+    # Hiperparametre grid'i
+    param_grid = {
+        'n_estimators': [50, 100, 200],
+        'max_samples': ['auto', 0.6, 0.8],
+        'contamination': [0.05, 0.1, 0.15],
+        'max_features': [1, 2],
+        'bootstrap': [False, True]
+    }
+
+    # GridSearchCV ile en iyi hiperparametreleri bul
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=3, scoring='roc_auc', n_jobs=-1)
+    grid_search.fit(data, np.ones(data.shape[0]))  # Yalnızca veri seti veriyoruz, etiket yok
+
+    print("En iyi hiperparametreler:", grid_search.best_params_)
+    return grid_search.best_estimator_
+
+def save_model(model, filename):
+    """Eğitilen modeli bir dosyaya kaydeder."""
+    try:
+        joblib.dump(model, filename)
+        print(f"Model başarıyla kaydedildi: {filename}")
+    except Exception as e:
+        print(f"Model kaydedilirken bir hata oluştu: {e}")
+
+def load_model(filename):
+    """Bir dosyadan eğitilen modeli yükler."""
+    try:
+        return joblib.load(filename)
+    except Exception as e:
+        print(f"Model yüklenirken bir hata oluştu: {e}")
+        raise
+
+def detect_anomalies(model, new_size):
+    """Yeni istek boyutunun anormal olup olmadığını eğitilen model ile tespit eder."""
+    prediction = model.predict(np.array([[new_size]]))
+    return prediction == -1
+
 def analyze_requests():
     sizes = read_log_file(LOG_FILE_PATH)
     
@@ -252,33 +212,21 @@ def analyze_requests():
         print("Analiz edilecek veri yok.")
         return
 
+    # Modeli eğit veya mevcut modeli yükle
     try:
-        model = load_model(MODEL_FILE_PATH)
+        model = load_model(MODEL_FILE_PATH) 
     except FileNotFoundError:
         model = train_model_with_optimization(sizes)
         save_model(model, MODEL_FILE_PATH)
 
+    # Yeni istek boyutunu simüle et (bu değeri gerçek istek boyutlarıyla değiştirin)
     new_request_size = sizes[-1][0]  # En son boyut
     print(f"Yeni istek boyutu: {new_request_size} bytes")
 
-    if detect_anomalies(model, [new_request_size]):
-        print(f"Uyarı: Yeni istek boyutu {new_request_size} byte anormal. Kullanıcı IP'si uzaklaştırıldı.")
+    if detect_anomalies(model, new_request_size):
+        print(f"Uyarı: Yeni istek boyutu {new_request_size} byte anormal.")
     else:
         print(f"Yeni istek boyutu {new_request_size} byte normal aralıkta.")
 
-# Zamanlayıcıyı başlatma
-def start_scheduler():
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(analyze_requests, 'interval', minutes=10)
-    scheduler.start()
-
 if __name__ == '__main__':
-    start_scheduler()
     app.run()
-
-@app.route('/profil')
-def profil():
-    return render_template('profil.html')
-
-
-

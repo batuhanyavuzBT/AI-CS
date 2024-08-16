@@ -136,7 +136,7 @@
     <script>
         function sendRequest() {
             const inputValue = document.getElementById('textInput').value;
-            fetch('http://127.0.0.1:5000/send-request', {
+            fetch('/send-request', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -151,19 +151,22 @@
             })
             .then(data => {
                 document.getElementById('responseMessage').textContent = 'Request gönderildi: ' + JSON.stringify(data);
-
-                // Logları güncelle
-                updateLogs();
+                updateLogs();  // Logları güncelle
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error('Error:', error);
                 document.getElementById('responseMessage').textContent = 'Error: ' + error.message;
             });
         }
 
         function updateLogs() {
-            fetch('http://127.0.0.1:5000/logs')
-            .then(response => response.json())
+            fetch('/logs')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(logs => {
                 const logContainer = document.getElementById('logContainer');
                 logContainer.innerHTML = '';  // Eski logları temizle
