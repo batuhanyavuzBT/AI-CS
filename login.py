@@ -5,7 +5,8 @@ from datetime import datetime
 import re
 import numpy as np
 from sklearn.ensemble import IsolationForest
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.metrics import confusion_matrix, classification_report
 import joblib
 
 app = Flask(__name__)
@@ -112,7 +113,7 @@ def success():
 
 # Log dosyasının yolu
 LOG_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\templates\log.txt'
-MODEL_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\anomaly_model.pkl'  # Model dosya yolu ve uzantısı .pkl olmalı
+MODEL_FILE_PATH = r'C:\Users\YAU9BU\Desktop\proje_spyder\anomaly_model.pkl'
 
 @app.route('/send-request', methods=['POST'])
 def send_request():
@@ -140,12 +141,6 @@ def logs():
         return send_file(LOG_FILE_PATH, as_attachment=True)
     except Exception as e:
         return f"Log dosyası okunamadı: {e}", 500
-
-def get_file_size(file_path):
-    """Dosyanın boyutunu bayt cinsinden döndürür."""
-    if os.path.exists(file_path):
-        return os.path.getsize(file_path)
-    return 0
 
 def read_log_file(file_path):
     """Log dosyasını okur ve istek boyutlarını döndürür."""
@@ -212,13 +207,34 @@ def analyze_requests():
         print("Analiz edilecek veri yok.")
         return
 
+    # Veriyi eğitim ve test setlerine ayırın
+    sizes_train, sizes_test = train_test_split(sizes, test_size=0.2, random_state=42)
+
+    # Test setinin etiketlerini oluşturun
+    true_labels_test = np.ones(sizes_test.shape[0])
+    num_anomalies = int(0.1 * sizes_test.shape[0])  # %10'u anomali olarak işaretleyin
+    true_labels_test[-num_anomalies:] = -1  # Test verisinin son kısmını anomali olarak işaretleyin
+
     # Modeli eğit veya mevcut modeli yükle
     try:
-        model = load_model(MODEL_FILE_PATH) 
+        model = load_model(MODEL_FILE_PATH)
     except FileNotFoundError:
-        model = train_model_with_optimization(sizes)
+        model = train_model_with_optimization(sizes_train)
         save_model(model, MODEL_FILE_PATH)
 
+    # Test seti üzerinde modelin performansını değerlendirin
+    predicted_labels = model.predict(sizes_test)
+
+    # Performans raporunu hesaplayın
+    report = classification_report(true_labels_test, predicted_labels, target_names=['Normal', 'Anomaly'])
+    print("Classification Report:")
+    print(report)
+    
+    # Confusion Matrix hesaplayın
+    cm = confusion_matrix(true_labels_test, predicted_labels)
+    print("Confusion Matrix:")
+    print(cm)
+    
     # Yeni istek boyutunu simüle et (bu değeri gerçek istek boyutlarıyla değiştirin)
     new_request_size = sizes[-1][0]  # En son boyut
     print(f"Yeni istek boyutu: {new_request_size} bytes")
@@ -229,5 +245,5 @@ def analyze_requests():
         print(f"Yeni istek boyutu {new_request_size} byte normal aralıkta.")
 
 if __name__ == '__main__':
+    analyze_requests()
     app.run()
- 
